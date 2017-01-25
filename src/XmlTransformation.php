@@ -16,6 +16,44 @@ class XmlTransformation {
     }
 
     /**
+     * @param array $data
+     * @return mixed
+     */
+    public static function arrayToXml(array $data)
+    {
+        $doc = new \SimpleXMLElement('<?xml version="1.0"?><root></root>');
+        self::convert($data, $doc);
+        return $doc->asXML();
+    }
+
+    /**
+     * @param array $array
+     * @param \SimpleXMLElement $el
+     */
+    private static function convert(array $array, \SimpleXMLElement $el)
+    {
+        foreach($array as $key => $value) {
+            if(is_array($value)) {
+                if (count($value) === 0) {
+                    continue;
+                }
+                list($firstKey, $_) = each($value); //TODO упрощенная проверка
+                if (is_numeric($firstKey)) {
+                    foreach ($value as $item) {
+                        self::convert(array($key => $item), $el);
+                    }
+                } else {
+                    $child = $el->addChild("$key");
+                    self::convert($value, $child);
+                }
+            } else {
+                $el->addChild("$key", htmlspecialchars("$value"));
+            }
+        }
+    }
+
+
+    /**
      * @param \SimpleXMLIterator $sxi
      * @return array
      */
