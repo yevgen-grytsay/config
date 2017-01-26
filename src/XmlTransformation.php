@@ -37,8 +37,7 @@ class XmlTransformation {
                 if (count($value) === 0) {
                     continue;
                 }
-                list($firstKey, $_) = each($value); //TODO упрощенная проверка
-                if (is_numeric($firstKey)) {
+                if (Func::any(Func::createIsNumeric(), array_keys($value))) {
                     foreach ($value as $item) {
                         self::convert(array($key => $item), $el);
                     }

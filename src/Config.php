@@ -80,11 +80,29 @@ class Config implements \ArrayAccess, \IteratorAggregate {
         return $result;
     }
 
+    public function toXml()
+    {
+        return XmlTransformation::arrayToXml($this->toArray());
+    }
+
     public function mergeFromArray(array $data)
     {
         foreach ($data as $key => $value) {
             $this->merge($key, $value);
         }
+    }
+
+    public function mergeFromXml($xml)
+    {
+        $this->mergeFromArray(XmlTransformation::xmlToArray($xml));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->toArray());
     }
 
     private function merge($key, $value)
@@ -94,13 +112,5 @@ class Config implements \ArrayAccess, \IteratorAggregate {
         } else {
             $this->{$key} = is_array($value) ? new Config($value) : $value;
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getIterator()
-    {
-        return new \ArrayIterator($this->toArray());
     }
 }
