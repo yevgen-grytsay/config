@@ -5,7 +5,7 @@ namespace YevgenGrytsay\Config;
  * @author: yevgen
  * @date: 25.01.17
  */
-class Config implements \ArrayAccess {
+class Config implements \ArrayAccess, \IteratorAggregate {
     private $data = [];
 
     public function __construct(array $data = [])
@@ -94,5 +94,13 @@ class Config implements \ArrayAccess {
         } else {
             $this->{$key} = is_array($value) ? new Config($value) : $value;
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->toArray());
     }
 }

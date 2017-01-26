@@ -60,4 +60,14 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
         $expected = ['a' => ['d' => 'e']];
         $this->assertEquals($expected, $conf->toArray());
     }
+
+    public function testIterator()
+    {
+        $conf = new Config(['a' => 'val']);
+        $result = [];
+        foreach ($conf as $key => $value) {
+            $result[$key] = $value;
+        }
+        $this->assertEquals(['a' => 'val'], $result);
+    }
 }
