@@ -39,14 +39,14 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
     {
         $conf = new Config();
         $conf->key = 'val';
-        $this->assertEquals(['key' => 'val'], $conf->toArray());
+        $this->assertEquals('val', $conf->key);
     }
 
     public function testArraySet()
     {
         $conf = new Config();
         $conf['key'] = 'val';
-        $this->assertEquals(['key' => 'val'], $conf->toArray());
+        $this->assertEquals('val', $conf['key']);
     }
 
     public function testObjectAccess()
@@ -75,11 +75,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
     public function testMergeFromArray()
     {
-        $conf = new Config(['a' => ['b' => 'c']]);
-        $conf->mergeFromArray(['a' => ['d' => 'e']]);
+        $conf = new Config(['a' => ['b' => 'c', 'd' => 'e']]);
+        $conf->mergeFromArray(['a' => ['b' => 'c2', 'g' => 'h']]);
         $expected = ['a' => [
-            'b' => 'c',
-            'd' => 'e'
+            'b' => 'c2',
+            'd' => 'e',
+            'g' => 'h'
         ]];
         $this->assertEquals($expected, $conf->toArray());
     }
