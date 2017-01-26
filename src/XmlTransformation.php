@@ -52,7 +52,6 @@ class XmlTransformation {
         }
     }
 
-
     /**
      * @param \SimpleXMLIterator $sxi
      * @return array

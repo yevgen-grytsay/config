@@ -42,6 +42,37 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(['key' => 'val'], $conf->toArray());
     }
 
+    public function testArraySet()
+    {
+        $conf = new Config();
+        $conf['key'] = 'val';
+        $this->assertEquals(['key' => 'val'], $conf->toArray());
+    }
+
+    public function testObjectAccess()
+    {
+        $conf = new Config(['key' => 'val']);
+        $this->assertEquals('val', $conf->key);
+    }
+
+    public function testArrayAccess()
+    {
+        $conf = new Config(['key' => 'val']);
+        $this->assertEquals('val', $conf['key']);
+    }
+
+    public function testNestedObjectAccess()
+    {
+        $conf = new Config(['a' => ['b' => 'val']]);
+        $this->assertEquals('val', $conf->a->b);
+    }
+
+    public function testNestedArrayAccess()
+    {
+        $conf = new Config(['a' => ['b' => 'val']]);
+        $this->assertEquals('val', $conf['a']['b']);
+    }
+
     public function testMergeFromArray()
     {
         $conf = new Config(['a' => ['b' => 'c']]);
