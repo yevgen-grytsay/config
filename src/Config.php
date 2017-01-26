@@ -79,4 +79,20 @@ class Config implements \ArrayAccess {
         }
         return $result;
     }
+
+    public function mergeFromArray(array $data)
+    {
+        foreach ($data as $key => $value) {
+            $this->merge($key, $value);
+        }
+    }
+
+    private function merge($key, $value)
+    {
+        if (isset($this->{$key}) && $this->{$key} instanceof Config) {
+            $this->{$key}->mergeFromArray($value);
+        } else {
+            $this->{$key} = is_array($value) ? new Config($value) : $value;
+        }
+    }
 }
