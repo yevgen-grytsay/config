@@ -85,6 +85,11 @@ class Config implements \ArrayAccess, \IteratorAggregate {
         return XmlTransformation::arrayToXml($this->toArray());
     }
 
+    public function toJson()
+    {
+        return json_encode($this->toArray());
+    }
+
     public function mergeFromArray(array $data)
     {
         foreach ($data as $key => $value) {
