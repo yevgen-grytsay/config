@@ -17,7 +17,7 @@ class Config implements \ArrayAccess, \IteratorAggregate {
 
     public function __set($name, $value)
     {
-        if (is_array($value)) {
+        if ($this->isRecord($value)) {
             $this->data[$name] = new Config($value);
         } else {
             $this->data[$name] = $value;
@@ -110,7 +110,16 @@ class Config implements \ArrayAccess, \IteratorAggregate {
         if (isset($this->{$key}) && $this->{$key} instanceof Config) {
             $this->{$key}->mergeFromArray($value);
         } else {
-            $this->{$key} = is_array($value) ? new Config($value) : $value;
+            $this->{$key} = $this->isRecord($value) ? new Config($value) : $value;
         }
+    }
+
+    /**
+     * @param $value
+     * @return bool
+     */
+    private function isRecord($value)
+    {
+        return is_array($value) && Func::none(Func::createIsNumeric(), array_keys($value));
     }
 }

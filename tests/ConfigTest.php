@@ -73,6 +73,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('val', $conf['a']['b']);
     }
 
+    public function testSetList()
+    {
+        $conf = new Config();
+        $conf->key = [1, 2, 3];
+        $this->assertEquals([1, 2, 3], $conf->key);
+    }
+
     public function testMergeFromArray()
     {
         $conf = new Config(['a' => ['b' => 'c', 'd' => 'e']]);
