@@ -44,3 +44,8 @@ var_dump($config->toXml());
 
 echo 'JSON:', PHP_EOL;
 var_dump($config->toJson());
+
+echo 'Accessing values:', PHP_EOL;
+var_dump($config['a']['b']['d']);
+var_dump($config->a->b->d);
+var_dump($config->list);
