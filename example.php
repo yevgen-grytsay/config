@@ -30,5 +30,6 @@ var_dump($config->toArray());
 
 echo 'XML:', PHP_EOL;
 var_dump($config->toXml());
+
 echo 'JSON:', PHP_EOL;
 var_dump($config->toJson());

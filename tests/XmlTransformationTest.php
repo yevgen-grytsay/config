@@ -3,9 +3,7 @@
  * @author: yevgen
  * @date: 25.01.17
  */
-
 namespace YevgenGrytsay\Config\Tests;
-
 
 use PHPUnit\Framework\TestCase;
 use YevgenGrytsay\Config\XmlTransformation;

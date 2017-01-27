@@ -3,7 +3,6 @@
  * @author: yevgen
  * @date: 26.01.17
  */
-
 namespace YevgenGrytsay\Config;
 
 

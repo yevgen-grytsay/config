@@ -1,13 +1,18 @@
 <?php
-namespace YevgenGrytsay\Config;
-
 /**
  * @author: yevgen
  * @date: 25.01.17
  */
+namespace YevgenGrytsay\Config;
+
+
 class Config implements \ArrayAccess, \IteratorAggregate {
     private $data = [];
 
+    /**
+     * Config constructor.
+     * @param array $data
+     */
     public function __construct(array $data = [])
     {
         foreach ($data as $key => $value) {
@@ -71,6 +76,9 @@ class Config implements \ArrayAccess, \IteratorAggregate {
         unset($this->{$offset});
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         $result = [];
@@ -80,16 +88,25 @@ class Config implements \ArrayAccess, \IteratorAggregate {
         return $result;
     }
 
+    /**
+     * @return mixed
+     */
     public function toXml()
     {
         return XmlTransformation::arrayToXml($this->toArray());
     }
 
+    /**
+     * @return string
+     */
     public function toJson()
     {
         return json_encode($this->toArray());
     }
 
+    /**
+     * @param array $data
+     */
     public function mergeFromArray(array $data)
     {
         foreach ($data as $key => $value) {
@@ -97,6 +114,9 @@ class Config implements \ArrayAccess, \IteratorAggregate {
         }
     }
 
+    /**
+     * @param string $xml
+     */
     public function mergeFromXml($xml)
     {
         $this->mergeFromArray(XmlTransformation::xmlToArray($xml));
@@ -110,6 +130,10 @@ class Config implements \ArrayAccess, \IteratorAggregate {
         return new \ArrayIterator($this->toArray());
     }
 
+    /**
+     * @param string $key
+     * @param mixed $value
+     */
     private function merge($key, $value)
     {
         if (isset($this->{$key}) && $this->{$key} instanceof Config) {
@@ -120,7 +144,7 @@ class Config implements \ArrayAccess, \IteratorAggregate {
     }
 
     /**
-     * @param $value
+     * @param mixed $value
      * @return bool
      */
     private function isRecord($value)

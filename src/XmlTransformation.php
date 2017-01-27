@@ -1,10 +1,11 @@
 <?php
-namespace YevgenGrytsay\Config;
-
 /**
  * @author: yevgen
  * @date: 25.01.17
  */
+namespace YevgenGrytsay\Config;
+
+
 class XmlTransformation {
     /**
      * @param string $xml
