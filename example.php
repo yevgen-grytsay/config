@@ -12,11 +12,16 @@ $config['a']['b']['d'] = 'a-b-d';
 $config['primes'] = [2, 3, 5, 7];
 $config['list'] = ['carrot'];
 
+/**
+ * Iterable
+ */
 foreach ($config as $key => $value) {
     var_dump($key, $value);
 }
 
-
+/**
+ * XML
+ */
 $xml = '
 <root>
     <a><b><c>a-b-c-2</c></b></a>
@@ -25,6 +30,12 @@ $xml = '
 </root>
 ';
 $config->mergeFromXml($xml);
+
+/**
+ * JSON
+ */
+$config->mergeFromJson('{"a":{"b":{"e":"a-b-e"}},"keys":["Alt","Ctrl","Del"]}');
+
 echo 'Array:', PHP_EOL;
 var_dump($config->toArray());
 

@@ -123,6 +123,14 @@ class Config implements \ArrayAccess, \IteratorAggregate {
     }
 
     /**
+     * @param string $json
+     */
+    public function mergeFromJson($json)
+    {
+        $this->mergeFromArray(json_decode($json, true));
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getIterator()
